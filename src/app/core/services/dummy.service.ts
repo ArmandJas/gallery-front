@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,10 @@ export class DummyService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+  }
 
-  getTime() : Observable<string> {
+  getTime(): Observable<string> {
     return this.http.get<string>(this.dummyUrl);
   }
 }
