@@ -10,7 +10,7 @@ import {DummyService} from './core/services/dummy.service';
 })
 export class AppComponent {
   title = 'gallery-front';
-  time = 'Loading'
+  time = 'Loading';
 
   constructor(private dummyService: DummyService) {
   }
