@@ -1,0 +1,18 @@
+{
+  "shared.not-found": "We could not find what you were looking for.",
+  "photo.name": "Photo name:",
+  "photo.upload-date": "Upload date:",
+  "photo.tags": "Tags:",
+  "photo.description": "Description:",
+  "photo.upload": "Upload",
+  "photo.input-name": "Enter photo name:",
+  "photo.input-name-error": "Invalid name",
+  "photo.input-image": "Upload a photo:",
+  "photo.input-image-error": "Invalid photo",
+  "photo.input-preview": "Photo preview:",
+  "photo.input-tags": "Enter tag:",
+  "photo.input-tags-button": "Add tag",
+  "photo.input-description": "Enter description:",
+  "photo.input-upload-button": "Upload photo",
+  "header.upload": "Upload photo"
+}

@@ -1,0 +1,83 @@
+<div class="container">
+  <form #photoForm="ngForm"
+        (ngSubmit)="photoForm.form.valid && submitForm()"
+        name="photoForm">
+
+    <div class="form-group">
+      <label for="name">{{ 'photo.input-name' | translate }} </label>
+      <input type="text" class="form-control" id="name"
+             required maxlength="50"
+             pattern="([a-zA-Z0-9]+ *)+"
+             [(ngModel)]="model.name" name="name"
+             #name="ngModel">
+      <div [hidden]="name.valid || name.pristine" class="errorMessage">
+        {{ 'photo.input-name-error' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="files">{{ 'photo.input-image' | translate }} </label>
+      <input type="file" id="files" class="form-control"
+             required appImageValidator
+             (change)="uploadImage($event)"
+             [(ngModel)]="inputFile" name="image"
+             #image="ngModel"
+      >
+
+      <div [hidden]="image.valid || image.pristine" class="errorMessage">
+        {{ 'photo.input-image-error' | translate }}
+      </div>
+      @if (model.image && image.valid) {
+        <div class="imageContainer">
+          <h1>{{ 'photo.input-preview' | translate }}</h1>
+          <img [src]="model.image" alt="input image" class="preview-image">
+        </div>
+      }
+
+    </div>
+
+    <form name="tagForm">
+      <div class="form-group">
+        <label for="tag">{{ 'photo.input-tags' | translate }} </label>
+        <input type="text" class="form-control" id="tag"
+               maxlength="20" required
+               pattern="([a-zA-Z0-9]+ *)+"
+               [(ngModel)]="tagInput" name="tag"
+               #tag="ngModel">
+
+        <button type="button" id="addTagButton"
+                [disabled]="!tag.valid"
+                (click)="addTag($event)">
+          {{ 'photo.input-tags-button' | translate }}
+        </button>
+      </div>
+    </form>
+
+    <div class="container text-center">
+      <div class="row">
+        @for (tag of model.tags; track tag) {
+          <div class="col">
+            {{ tag }}
+            <button type="button"
+                    (click)="removeTag(tag)">
+              x
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">{{ 'photo.input-description' | translate }} </label>
+      <input type="text" class="form-control" id="description"
+             [(ngModel)]="model.description" name="description"
+      >
+    </div>
+
+    <div class="form-group">
+      <button type="submit" [disabled]="!photoForm.form.valid">
+        {{ 'photo.input-upload-button' | translate }}
+      </button>
+    </div>
+  </form>
+</div>
