@@ -2,8 +2,9 @@ import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
-import {PHOTO_VIEW_PATH} from 'src/app/core/util/routing-constants';
-import {PhotoDtoModel} from 'src/app/shared/models/photo-dto.model';
+import {RegexConstants} from 'src/app/core/util/regex-constants';
+import {RoutingConstants} from 'src/app/core/util/routing-constants';
+import {PhotoUploadDtoModel} from 'src/app/shared/models/photo-upload-dto.model';
 import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
 import {PhotoService} from '../services/photo.service';
 
@@ -13,33 +14,34 @@ import {PhotoService} from '../services/photo.service';
     ReactiveFormsModule,
     FormsModule,
     ImageValidatorDirective,
-    TranslatePipe
+    TranslatePipe,
   ],
   templateUrl: './photo-upload-form.component.html',
   styleUrl: './photo-upload-form.component.css'
 })
 export class PhotoUploadFormComponent {
-  invalidForm: boolean;
-  model = new PhotoDtoModel("", "", "", []);
+  model = new PhotoUploadDtoModel();
   tagInput = "";
   inputFile = "";
+  imagePreview = "";
+  RegexConstants = RegexConstants;
 
   constructor(private photoService: PhotoService,
               private router: Router) {
-    this.invalidForm = false;
   }
 
   uploadImage(event: any) {
     const reader = new FileReader();
+    this.model.image = event.target.files[0];
 
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = () => {
       if (reader.result != null) {
-        this.model.image = reader.result.toString();
+        this.imagePreview = reader.result.toString();
       }
     };
     reader.onerror = function (error) {
-      console.log('File reader error: ', error);
+      console.error('File reader error: ', error);
     };
   }
 
@@ -61,8 +63,16 @@ export class PhotoUploadFormComponent {
   }
 
   submitForm(): void {
-    this.photoService.postPhoto(this.model).subscribe(model =>
-      this.router.navigate([PHOTO_VIEW_PATH + '/' + model.id])
+    const formData = new FormData();
+    formData.append('name', this.model.name);
+    if (this.model.description) {
+      formData.append('description', this.model.description);
+    }
+    formData.append('tags', this.model.tags.toString());
+    formData.append('image', this.model.image);
+
+    this.photoService.savePhoto(formData).subscribe(model =>
+      this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id])
     );
   }
 }

@@ -7,5 +7,5 @@ import {Component} from '@angular/core';
   styleUrl: './photo-list.component.css'
 })
 export class PhotoListComponent {
-
+  //TODO: mr3: create photo list page
 }

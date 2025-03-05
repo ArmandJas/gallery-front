@@ -13,11 +13,11 @@ export class PhotoService {
   ) {
   }
 
-  public postPhoto(photo: PhotoDtoModel) {
+  public savePhoto(photo: FormData) {
     return this.http.post<PhotoDtoModel>(this.url + "post", photo);
   }
 
-  public getPhoto(id: Number) {
+  public getPhotoById(id: Number) {
     return this.http.get<PhotoDtoModel>(this.url + id);
   }
 }

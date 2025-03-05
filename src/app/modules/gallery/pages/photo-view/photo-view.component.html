@@ -1,7 +1,7 @@
 <h1>{{ 'photo.name' | translate }} {{ photoDto.name }}</h1>
-<h2>{{ 'photo.upload-date' | translate }} {{ photoDto.uploadDateTime }}</h2>
+<h2>{{ 'photo.upload.date' | translate }} {{ photoDto.uploadDateTime }}</h2>
 
-<img appImagePlaceholder [src]="photoDto.image">
+<img appImagePlaceholder [src]=photoDto.imageBase64>
 
 <h2>{{ 'photo.tags' | translate }}</h2>
 <div class="container text-start">

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
-import {PHOTO_LIST_PATH, PHOTO_UPLOAD_PATH} from 'src/app/core/util/routing-constants';
+import {RoutingConstants} from 'src/app/core/util/routing-constants';
 
 @Component({
   selector: 'app-header',
@@ -18,14 +18,12 @@ import {PHOTO_LIST_PATH, PHOTO_UPLOAD_PATH} from 'src/app/core/util/routing-cons
 export class HeaderComponent {
   title = 'MyGallery™';
   language = '_en';
+  routingConstants = RoutingConstants;
 
-  constructor(private translate: TranslateService) {
+  constructor(private translateService: TranslateService) {
   }
 
   changeLanguage() {
-    this.translate.use(this.language);
+    this.translateService.use(this.language);
   }
-
-  protected readonly PHOTO_UPLOAD_PATH = PHOTO_UPLOAD_PATH;
-  protected readonly PHOTO_LIST_PATH = PHOTO_LIST_PATH;
 }

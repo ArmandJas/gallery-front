@@ -13,7 +13,7 @@ import {PhotoService} from '../../components/services/photo.service';
   styleUrl: './photo-view.component.css'
 })
 export class PhotoViewComponent {
-  photoDto = new PhotoDtoModel("Loading...", "", "", []);
+  photoDto = new PhotoDtoModel("Loading...");
 
   constructor(
     private route: ActivatedRoute,
@@ -28,8 +28,10 @@ export class PhotoViewComponent {
 
   public getPhoto() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.photoService.getPhoto(id).subscribe({
-      next: (photoDto) => this.photoDto = photoDto,
+    this.photoService.getPhotoById(id).subscribe({
+      next: (photoDto) => {
+        this.photoDto = photoDto;
+      },
       error: (err) => this.router.navigate(['/404'])
     });
   }
