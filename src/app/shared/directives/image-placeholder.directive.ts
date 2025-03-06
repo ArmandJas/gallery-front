@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
 
 type ImageSrc = string | null | undefined;
 const placeholderClass = "imgPlaceholder"
@@ -9,8 +9,7 @@ const placeholderClass = "imgPlaceholder"
 export class ImagePlaceholderDirective implements OnChanges {
   @Input({required: true}) src: ImageSrc = null;
 
-  // url link to some default image
-  private defaultLocalImage = "placeholder.png";
+  private placeholderLocalImage = "placeholder.png";
 
   constructor(
     private imageRef: ElementRef,
@@ -18,34 +17,29 @@ export class ImagePlaceholderDirective implements OnChanges {
   ) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.initImage();
   }
 
   private initImage() {
-    // show skeleton before image is loaded
-    this.renderer.addClass(this.imageRef.nativeElement, placeholderClass);
+    this.applyPlaceholderClass();
 
     const img = new Image();
 
-    // return on no src
     if (!this.src) {
       return;
     }
 
-    // if possible to load image, set it to img
+    img.src = this.src;
+
     img.onload = () => {
       this.setImage(this.resolveImage(this.src));
-      this.renderer.removeClass(this.imageRef.nativeElement, placeholderClass);
+      this.removePlaceholderClass();
     };
     img.onerror = () => {
-      // Set a placeholder image
-      this.setImage(this.defaultLocalImage);
-      this.renderer.removeClass(this.imageRef.nativeElement, placeholderClass);
+      this.setImage(this.placeholderLocalImage);
+      this.removePlaceholderClass();
     };
-
-    // triggers http request to load image
-    img.src = this.resolveImage(this.src);
   }
 
   private setImage(src: ImageSrc) {
@@ -54,9 +48,17 @@ export class ImagePlaceholderDirective implements OnChanges {
 
   private resolveImage(src: ImageSrc): string {
     if (!src) {
-      return this.defaultLocalImage;
+      return this.placeholderLocalImage;
     }
 
     return src;
+  }
+
+  private applyPlaceholderClass() {
+    this.renderer.addClass(this.imageRef.nativeElement, placeholderClass);
+  }
+
+  private removePlaceholderClass() {
+    this.renderer.removeClass(this.imageRef.nativeElement, placeholderClass);
   }
 }

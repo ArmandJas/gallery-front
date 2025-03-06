@@ -14,12 +14,12 @@ import {RegexConstants} from 'src/app/core/util/regex-constants';
 })
 export class ImageValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
-    if (control.value) {
-      const regex = new RegExp(RegexConstants.IMAGE_FILE_REGEX);
-      const valid = regex.test(control.value);
-      return valid ? null : {isValid: false};
+    if (!control.value) {
+      return {isValid: false};
     }
 
-    return {isValid: false};
+    const regex = new RegExp(RegexConstants.IMAGE_FILE_REGEX);
+    const valid = regex.test(control.value);
+    return valid ? null : {isValid: false};
   }
 }

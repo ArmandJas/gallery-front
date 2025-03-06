@@ -1,4 +1,4 @@
-export class PhotoDtoModel {
+export class PhotoDto {
   constructor(
     public name: string = "",
     public imageBase64: string = "",

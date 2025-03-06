@@ -1,5 +1,5 @@
 {
-  "shared.not.found": "Rezultatas nerastas.",
+  "shared.not.found.error": "Rezultatas nerastas.",
   "photo.name": "Nuotraukos pavadinimas:",
   "photo.upload.date": "Įkėlimo data:",
   "photo.tags": "Nuotraukos žymės:",

@@ -1,4 +1,4 @@
-export class PhotoUploadDtoModel {
+export class PhotoUploadRequest {
   constructor(
     public name: string = "",
     public image: File = new File([""], "temp"),

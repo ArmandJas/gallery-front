@@ -1,5 +1,5 @@
 {
-  "shared.not.found": "We could not find what you were looking for.",
+  "shared.not.found.error": "We could not find what you were looking for.",
   "photo.name": "Photo name:",
   "photo.upload.date": "Upload date:",
   "photo.tags": "Tags:",

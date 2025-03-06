@@ -29,7 +29,7 @@
              appImageValidator
              #image="ngModel"
              (change)="uploadImage($event)"
-             [(ngModel)]="inputFile"
+             [(ngModel)]="inputFilePathName"
       >
 
       <div [hidden]="image.valid || image.pristine" class="errorMessage">
@@ -38,7 +38,7 @@
       @if (model.image && image.valid) {
         <div class="imageContainer">
           <h1> {{ 'photo.form.preview' | translate }} </h1>
-          <img [src]="imagePreview" alt="input image" class="preview-image">
+          <img [src]="previewImageBase64" alt="input image" class="preview-image">
         </div>
       }
 
@@ -60,7 +60,7 @@
         <button type="button"
                 id="addTagButton"
                 [disabled]="!tag.valid"
-                (click)="addTag($event)">
+                (click)="addTag()">
           {{ 'photo.buttons.tag.add' | translate }}
         </button>
       </div>

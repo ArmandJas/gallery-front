@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {RegexConstants} from 'src/app/core/util/regex-constants';
 import {RoutingConstants} from 'src/app/core/util/routing-constants';
-import {PhotoUploadDtoModel} from 'src/app/shared/models/photo-upload-dto.model';
 import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
+import {PhotoUploadRequest} from '../../models/photo-upload.request';
 import {PhotoService} from '../services/photo.service';
 
 @Component({
@@ -20,10 +20,10 @@ import {PhotoService} from '../services/photo.service';
   styleUrl: './photo-upload-form.component.css'
 })
 export class PhotoUploadFormComponent {
-  model = new PhotoUploadDtoModel();
+  model = new PhotoUploadRequest();
   tagInput = "";
-  inputFile = "";
-  imagePreview = "";
+  inputFilePathName: string | undefined;
+  previewImageBase64: string | undefined;
   RegexConstants = RegexConstants;
 
   constructor(private photoService: PhotoService,
@@ -37,7 +37,7 @@ export class PhotoUploadFormComponent {
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = () => {
       if (reader.result != null) {
-        this.imagePreview = reader.result.toString();
+        this.previewImageBase64 = reader.result.toString();
       }
     };
     reader.onerror = function (error) {
@@ -45,7 +45,7 @@ export class PhotoUploadFormComponent {
     };
   }
 
-  addTag(event: any) {
+  addTag() {
     this.tagInput = this.tagInput.trim();
     const index = this.model.tags.indexOf(this.tagInput);
     if (index == -1) {
@@ -64,12 +64,12 @@ export class PhotoUploadFormComponent {
 
   submitForm(): void {
     const formData = new FormData();
-    formData.append('name', this.model.name);
-    if (this.model.description) {
-      formData.append('description', this.model.description);
+
+    for (const [key, value] of Object.entries(this.model)) {
+      if (value) {
+        formData.append(key, value);
+      }
     }
-    formData.append('tags', this.model.tags.toString());
-    formData.append('image', this.model.image);
 
     this.photoService.savePhoto(formData).subscribe(model =>
       this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id])
