@@ -1,0 +1,22 @@
+<h1>{{ 'photo.name' | translate }} {{ photoDto.name }}</h1>
+<h2>{{ 'photo.upload.date' | translate }} {{ photoDto.uploadDateTime }}</h2>
+
+<img appImagePlaceholder [src]="photoDto.imageBase64">
+
+<h2>{{ 'photo.tags' | translate }}</h2>
+<div class="container text-start">
+  <div class="row">
+    @for (tag of photoDto.tags; track tag) {
+      <div class="col">
+        <button type="button">
+          {{ tag }}
+        </button>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="photoDescription">
+  <h2>{{ 'photo.description' | translate }}</h2>
+  {{ photoDto.description }}
+</div>

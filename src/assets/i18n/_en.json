@@ -1,0 +1,20 @@
+{
+  "shared.not.found.error": "We could not find what you were looking for.",
+  "photo.name": "Photo name:",
+  "photo.upload.date": "Upload date:",
+  "photo.tags": "Tags:",
+  "photo.description": "Description:",
+  "photo.upload": "Upload photo",
+  "photo.buttons.tag.add": "Add tag",
+  "photo.buttons.upload.photo": "Upload photo",
+  "photo.form.name.label": "Enter photo name:",
+  "photo.form.name.error": "Invalid name",
+  "photo.form.image.label": "Upload photo:",
+  "photo.form.image.error": "Invalid photo",
+  "photo.form.preview": "Photo preview",
+  "photo.form.tags.label": "Enter label:",
+  "photo.form.description.label": "Enter photo description:",
+  "header.upload": "Upload photo",
+  "header.language.english": "English",
+  "header.language.lithuanian": "Lietuvių"
+}

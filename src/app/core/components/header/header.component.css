@@ -1,0 +1,15 @@
+nav {
+  float: left;
+  position: sticky;
+  top: 0;
+}
+
+.nav-container {
+  background-color: #40E0D0;
+  padding: 6px;
+  margin-bottom: 6px;
+}
+
+.logo {
+  font-size: 2rem;
+}

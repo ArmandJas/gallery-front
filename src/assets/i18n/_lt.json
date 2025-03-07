@@ -1,0 +1,20 @@
+{
+  "shared.not.found.error": "Rezultatas nerastas.",
+  "photo.name": "Nuotraukos pavadinimas:",
+  "photo.upload.date": "Įkėlimo data:",
+  "photo.tags": "Nuotraukos žymės:",
+  "photo.description": "Nuotraukos aprašas:",
+  "photo.upload": "Įkelti nuotrauką",
+  "photo.buttons.tag.add": "Pridėti žymę",
+  "photo.buttons.upload.photo": "Įkelti nuotrauką",
+  "photo.form.name.label": "Įveskite nuotraukos pavadinimą:",
+  "photo.form.name.error": "Pavadinimas netinkamas",
+  "photo.form.image.label": "Įkelti nuotrauką:",
+  "photo.form.image.error": "Nuotrauka netinkama",
+  "photo.form.preview": "Nuotraukos peržiūra",
+  "photo.form.tags.label": "Įveskite žymę:",
+  "photo.form.description.label": "Įveskite nuotraukos aprašą:",
+  "header.upload": "Įkelti nuotrauką",
+  "header.language.english": "English",
+  "header.language.lithuanian": "Lietuvių"
+}

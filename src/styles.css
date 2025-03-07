@@ -1,37 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
-h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
-}
 
-h2, h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
-
-body {
-  margin: 2em;
-}
-
-body, input[type="text"], button {
-  color: #333;
-  font-family: Cambria, Georgia, serif;
-}
-
-button {
-  background-color: #eee;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  color: black;
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+img {
+  object-fit: contain;
+  border: 4px black solid;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 button:hover {
@@ -40,12 +13,38 @@ button:hover {
 }
 
 button:disabled {
-  background-color: #eee;
+  background-color: #eeeeee;
   color: #aaa;
   cursor: auto;
 }
 
-/* everywhere else */
+.errorMessage {
+  color: red;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 10px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 10px solid #a94442; /* red */
+}
+
+.imgPlaceholder {
+  width: 200px;
+  height: 200px;
+  margin: 25px;
+  border-radius: 10px;
+  aspect-ratio: 1;
+  animation: rotate 5s infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
