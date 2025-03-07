@@ -15,7 +15,7 @@ export const routes: Routes = [
     component: PhotoUploadComponent
   },
   {
-    path: RoutingConstants.PHOTO_VIEW_FULL_PATH,
+    path: RoutingConstants.PHOTO_VIEW_PATH + '/:id',
     component: PhotoViewComponent
   },
   {

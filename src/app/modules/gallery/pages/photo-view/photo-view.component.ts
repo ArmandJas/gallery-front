@@ -25,11 +25,21 @@ export class PhotoViewComponent {
 
   private loadPhoto(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!id || id < 0) {
+      this.navigateToNotFound();
+      return;
+    }
+
     this.photoService.getPhotoById(id).subscribe({
       next: (photoDto) => {
         this.photoDto = photoDto;
       },
-      error: () => this.router.navigate(['/404'])
+      error: () => this.navigateToNotFound()
     });
+
+  }
+
+  private navigateToNotFound(): void {
+    this.router.navigate(['/404']);
   }
 }

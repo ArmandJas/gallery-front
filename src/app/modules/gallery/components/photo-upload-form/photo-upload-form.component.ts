@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {RegexConstants} from 'src/app/core/util/regex-constants';
 import {RoutingConstants} from 'src/app/core/util/routing-constants';
+import {FormDataCreator} from 'src/app/shared/util/form-data-creator';
 import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
 import {PhotoUploadRequest} from '../../models/photo-upload.request';
 import {PhotoService} from '../services/photo.service';
@@ -63,13 +64,7 @@ export class PhotoUploadFormComponent {
   }
 
   submitForm(): void {
-    const formData = new FormData();
-
-    for (const [key, value] of Object.entries(this.model)) {
-      if (value) {
-        formData.append(key, value);
-      }
-    }
+    const formData = FormDataCreator.createFormData(this.model);
 
     this.photoService.savePhoto(formData).subscribe(model =>
       this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id])
