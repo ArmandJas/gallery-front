@@ -15,7 +15,6 @@ import {PhotoDtoModel} from 'src/app/shared/models/photo-dto.model';
   styleUrl: './photo-list.component.css'
 })
 export class PhotoListComponent {
-
   photoList !: PhotoDtoModel[];
 
   constructor(
@@ -26,13 +25,13 @@ export class PhotoListComponent {
   }
 
   //TODO: MR3: don't use oninit
-  ngOnInit(){
+  ngOnInit() {
     //TODO: MR3: validate parameter (maybe reuse other validation)
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.photoService.getPhotoPage(id).subscribe({
       next: (photoList) => {
         this.photoList = photoList;
-        if(this.photoList.length == 0){
+        if (this.photoList.length == 0) {
           this.router.navigate(['/404']);
         }
       },

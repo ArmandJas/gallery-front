@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "i18n:init": "ngx-translate-extract --input ./src --output ./public/i18n/template.json --key-as-default-value --replace --format json",
-    "i18n:extract": "ngx-translate-extract --input ./src --output ./public/i18n/_{en,lt}.json --clean --format json"
+    "i18n:init": "ngx-translate-extract --input ./src --output src/assets/i18n/template.json --key-as-default-value --replace --format json",
+    "i18n:extract": "ngx-translate-extract --input ./src --output src/assets/i18n/_{en,lt}.json --clean --format json"
   },
   "private": true,
   "dependencies": {

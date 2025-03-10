@@ -2,9 +2,11 @@ import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
-import {PHOTO_VIEW_PATH} from 'src/app/core/util/routing-constants';
-import {PhotoDtoModel} from 'src/app/shared/models/photo-dto.model';
+import {RegexConstants} from 'src/app/core/util/regex-constants';
+import {RoutingConstants} from 'src/app/core/util/routing-constants';
+import {FormDataCreator} from 'src/app/shared/util/form-data-creator';
 import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
+import {PhotoUploadRequest} from '../../models/photo-upload.request';
 import {PhotoService} from '../services/photo.service';
 
 @Component({
@@ -13,37 +15,38 @@ import {PhotoService} from '../services/photo.service';
     ReactiveFormsModule,
     FormsModule,
     ImageValidatorDirective,
-    TranslatePipe
+    TranslatePipe,
   ],
   templateUrl: './photo-upload-form.component.html',
   styleUrl: './photo-upload-form.component.css'
 })
 export class PhotoUploadFormComponent {
-  invalidForm: boolean;
-  model = new PhotoDtoModel("", "", "", []);
+  model = new PhotoUploadRequest();
   tagInput = "";
-  inputFile = "";
+  inputFilePathName: string | undefined;
+  previewImageBase64: string | undefined;
+  RegexConstants = RegexConstants;
 
   constructor(private photoService: PhotoService,
               private router: Router) {
-    this.invalidForm = false;
   }
 
   uploadImage(event: any) {
     const reader = new FileReader();
+    this.model.image = event.target.files[0];
 
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = () => {
       if (reader.result != null) {
-        this.model.image = reader.result.toString();
+        this.previewImageBase64 = reader.result.toString();
       }
     };
     reader.onerror = function (error) {
-      console.log('File reader error: ', error);
+      console.error('File reader error: ', error);
     };
   }
 
-  addTag(event: any) {
+  addTag() {
     this.tagInput = this.tagInput.trim();
     const index = this.model.tags.indexOf(this.tagInput);
     if (index == -1) {
@@ -61,8 +64,10 @@ export class PhotoUploadFormComponent {
   }
 
   submitForm(): void {
-    this.photoService.postPhoto(this.model).subscribe(model =>
-      this.router.navigate([PHOTO_VIEW_PATH + '/' + model.id])
+    const formData = FormDataCreator.createFormData(this.model);
+
+    this.photoService.savePhoto(formData).subscribe(model =>
+      this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id])
     );
   }
 }

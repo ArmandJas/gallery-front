@@ -3,22 +3,24 @@
     <div class="row align-items-center">
 
       <div class="col">
-        <button [routerLink]=PHOTO_LIST_PATH routerLinkActive="active"
+        <button [routerLink]=RoutingConstants.PHOTO_LIST_PATH
+                routerLinkActive="active"
                 class="logo">
           {{ title }}
         </button>
       </div>
 
       <div class="col">
-        <button [routerLink]=PHOTO_UPLOAD_PATH routerLinkActive="active">
+        <button [routerLink]=RoutingConstants.PHOTO_UPLOAD_PATH
+                routerLinkActive="active">
           {{ 'header.upload' | translate }}
         </button>
       </div>
 
       <div class="col">
         <select [(ngModel)]=language (change)="changeLanguage()">
-          <option value="_en">English</option>
-          <option value="_lt">Lietuvių</option>
+          <option value="_en">{{ 'header.language.english' | translate }}</option>
+          <option value="_lt">{{ 'header.language.lithuanian' | translate }}</option>
         </select>
       </div>
     </div>

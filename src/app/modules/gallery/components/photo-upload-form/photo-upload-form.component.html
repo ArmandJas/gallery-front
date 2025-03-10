@@ -4,33 +4,41 @@
         name="photoForm">
 
     <div class="form-group">
-      <label for="name">{{ 'photo.input-name' | translate }} </label>
-      <input type="text" class="form-control" id="name"
-             required maxlength="50"
-             pattern="([a-zA-Z0-9]+ *)+"
-             [(ngModel)]="model.name" name="name"
-             #name="ngModel">
+      <label for="name">{{ 'photo.form.name.label' | translate }} </label>
+      <input type="text"
+             id="name"
+             name="name"
+             class="form-control"
+             required
+             maxlength="50"
+             [pattern]=RegexConstants.LETTERS_NUMBERS_SPACES_REGEX
+             #name="ngModel"
+             [(ngModel)]="model.name">
       <div [hidden]="name.valid || name.pristine" class="errorMessage">
-        {{ 'photo.input-name-error' | translate }}
+        {{ 'photo.form.name.error' | translate }}
       </div>
     </div>
 
     <div class="form-group">
-      <label for="files">{{ 'photo.input-image' | translate }} </label>
-      <input type="file" id="files" class="form-control"
-             required appImageValidator
-             (change)="uploadImage($event)"
-             [(ngModel)]="inputFile" name="image"
+      <label for="files"> {{ 'photo.form.image.label' | translate }} </label>
+      <input type="file"
+             id="files"
+             name="image"
+             class="form-control"
+             required
+             appImageValidator
              #image="ngModel"
+             (change)="uploadImage($event)"
+             [(ngModel)]="inputFilePathName"
       >
 
       <div [hidden]="image.valid || image.pristine" class="errorMessage">
-        {{ 'photo.input-image-error' | translate }}
+        {{ 'photo.form.image.error' | translate }}
       </div>
       @if (model.image && image.valid) {
         <div class="imageContainer">
-          <h1>{{ 'photo.input-preview' | translate }}</h1>
-          <img [src]="model.image" alt="input image" class="preview-image">
+          <h1> {{ 'photo.form.preview' | translate }} </h1>
+          <img [src]="previewImageBase64" alt="input image" class="preview-image">
         </div>
       }
 
@@ -38,17 +46,22 @@
 
     <form name="tagForm">
       <div class="form-group">
-        <label for="tag">{{ 'photo.input-tags' | translate }} </label>
-        <input type="text" class="form-control" id="tag"
-               maxlength="20" required
-               pattern="([a-zA-Z0-9]+ *)+"
-               [(ngModel)]="tagInput" name="tag"
-               #tag="ngModel">
+        <label for="tag"> {{ 'photo.form.tags.label' | translate }} </label>
+        <input type="text"
+               id="tag"
+               name="tag"
+               class="form-control"
+               required
+               maxlength="20"
+               [pattern]=RegexConstants.LETTERS_NUMBERS_SPACES_REGEX
+               #tag="ngModel"
+               [(ngModel)]="tagInput">
 
-        <button type="button" id="addTagButton"
+        <button type="button"
+                id="addTagButton"
                 [disabled]="!tag.valid"
-                (click)="addTag($event)">
-          {{ 'photo.input-tags-button' | translate }}
+                (click)="addTag()">
+          {{ 'photo.buttons.tag.add' | translate }}
         </button>
       </div>
     </form>
@@ -68,15 +81,17 @@
     </div>
 
     <div class="form-group">
-      <label for="description">{{ 'photo.input-description' | translate }} </label>
-      <input type="text" class="form-control" id="description"
-             [(ngModel)]="model.description" name="description"
-      >
+      <label for="description"> {{ 'photo.form.description.label' | translate }} </label>
+      <input type="text"
+             id="description"
+             name="description"
+             class="form-control"
+             [(ngModel)]="model.description">
     </div>
 
     <div class="form-group">
       <button type="submit" [disabled]="!photoForm.form.valid">
-        {{ 'photo.input-upload-button' | translate }}
+        {{ 'photo.buttons.upload.photo' | translate }}
       </button>
     </div>
   </form>

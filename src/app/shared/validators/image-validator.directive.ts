@@ -1,5 +1,6 @@
 import {Directive} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator} from '@angular/forms';
+import {RegexConstants} from 'src/app/core/util/regex-constants';
 
 @Directive({
   selector: '[appImageValidator]',
@@ -13,11 +14,12 @@ import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator} from '@angu
 })
 export class ImageValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
-    if (control.value) {
-      const regex = new RegExp("(.*?)\.(jpg|png|jpeg|bmp)$");
-      const valid = regex.test(control.value);
-      return valid ? null : {isValid: false};
+    if (!control.value) {
+      return {isValid: false};
     }
-    return {isValid: false};
+
+    const regex = new RegExp(RegexConstants.IMAGE_FILE_REGEX);
+    const valid = regex.test(control.value);
+    return valid ? null : {isValid: false};
   }
 }
