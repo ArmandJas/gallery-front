@@ -27,5 +27,6 @@ export class HeaderComponent {
   }
 
   protected readonly PHOTO_UPLOAD_PATH = PHOTO_UPLOAD_PATH;
-  protected readonly PHOTO_LIST_PATH = PHOTO_LIST_PATH;
+  protected readonly PHOTO_LIST_PATH = PHOTO_LIST_PATH + '/0';
+  //TODO: MR3: make page number not start from 0
 }

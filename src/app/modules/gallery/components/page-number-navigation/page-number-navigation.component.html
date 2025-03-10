@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <input type="image" alt="photo"
+             appImagePlaceholder src="chevron_left.png"
+             (click)="navigateBack()">
+    </div>
+
+    <div class="col">
+      <a (click)="navigateBack()">{{ pageNumber - 1}}</a>
+    </div>
+
+    <div class="col">
+      {{ pageNumber }}
+    </div>
+
+    <div class="col">
+      <a (click)="navigateForward()">{{ pageNumber + 1}}</a>
+    </div>
+
+    <div class="col">
+      <input type="image" alt="photo"
+             appImagePlaceholder src="chevron_right.png"
+             (click)="navigateForward()">
+    </div>
+  </div>
+</div>

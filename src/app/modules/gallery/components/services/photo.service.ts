@@ -20,4 +20,8 @@ export class PhotoService {
   public getPhoto(id: Number) {
     return this.http.get<PhotoDtoModel>(this.url + id);
   }
+
+  public getPhotoPage(id: Number) {
+    return this.http.get<PhotoDtoModel[]>(this.url + "page/" + id);
+  }
 }
