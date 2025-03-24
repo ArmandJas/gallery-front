@@ -1,9 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs';
-import {PhotoPageRequest} from '../../models/photo-page.request';
-import {PhotoPageResponse} from '../../models/photo-page.response';
-import {PhotoDto} from '../../models/photo.dto';
+import {PhotoPageRequest} from '../models/photo-page.request';
+import {PhotoPageResponse} from '../models/photo-page.response';
+import {PhotoDto} from '../models/photo.dto';
 
 @Injectable({
   providedIn: 'root'

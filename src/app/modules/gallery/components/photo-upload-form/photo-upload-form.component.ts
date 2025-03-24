@@ -8,7 +8,7 @@ import {ErrorNavigator} from 'src/app/shared/util/error-navigator';
 import {FormDataCreator} from 'src/app/shared/util/form-data-creator';
 import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
 import {PhotoUploadRequest} from '../../models/photo-upload.request';
-import {PhotoService} from '../services/photo.service';
+import {PhotoService} from '../../services/photo.service';
 import {TagInputComponent} from '../tag-input/tag-input/tag-input.component';
 
 @Component({

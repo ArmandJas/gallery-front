@@ -5,7 +5,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {ImagePlaceholderDirective} from 'src/app/shared/directives/image-placeholder.directive';
 import {ErrorNavigator} from 'src/app/shared/util/error-navigator';
 import {NumberValidator} from 'src/app/shared/util/number-validator';
-import {PhotoService} from '../../components/services/photo.service';
+import {PhotoService} from '../../services/photo.service';
 import {PhotoDto} from '../../models/photo.dto';
 
 @Component({
