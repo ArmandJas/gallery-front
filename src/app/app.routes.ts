@@ -1,14 +1,18 @@
 import {Routes} from '@angular/router';
-import {RoutingConstants} from 'src/app/core/util/routing-constants';
-import {NotFoundPageComponent} from 'src/app/shared/components/not-found-page/not-found-page.component';
+import {RoutingConstants} from './core/util/routing-constants';
 import {PhotoListComponent} from './modules/gallery/pages/photo-list/photo-list.component';
 import {PhotoUploadComponent} from './modules/gallery/pages/photo-upload/photo-upload.component';
 import {PhotoViewComponent} from './modules/gallery/pages/photo-view/photo-view.component';
+import {ErrorPageComponent} from './shared/components/error-page/error-page.component';
 
 export const routes: Routes = [
   {
-    path: RoutingConstants.PHOTO_LIST_PATH,
+    path: RoutingConstants.PHOTO_LIST_PATH + '/:pageNumber',
     component: PhotoListComponent
+  },
+  {
+    path: RoutingConstants.PHOTO_LIST_PATH,
+    redirectTo: RoutingConstants.PHOTO_LIST_PATH + '/1'
   },
   {
     path: RoutingConstants.PHOTO_UPLOAD_PATH,
@@ -19,7 +23,11 @@ export const routes: Routes = [
     component: PhotoViewComponent
   },
   {
+    path: RoutingConstants.ERROR_PAGE_PATH + '/:errorNumber',
+    component: ErrorPageComponent
+  },
+  {
     path: '**',
-    component: NotFoundPageComponent
+    redirectTo: RoutingConstants.ERROR_PAGE_PATH + '/404'
   },
 ];

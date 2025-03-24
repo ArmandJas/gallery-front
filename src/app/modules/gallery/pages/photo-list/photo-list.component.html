@@ -1,6 +1,10 @@
-<app-page-number-navigation/>
+<app-photo-search (executeSearchEvent)="executeSearch($event)"/>
+<app-page-number-navigation [pageCount]="pageCount"/>
 <div class="container text-start">
   <div class="row">
+    @if (isEmpty) {
+      <h1 class="errorMessage">{{ 'shared.error.not.found' | translate }}</h1>
+    }
     @for (photo of photoList; track photo.id) {
       <div class="col-6 col-md-4">
         <app-photo-list-item [photo]=photo></app-photo-list-item>
@@ -8,4 +12,4 @@
     }
   </div>
 </div>
-<app-page-number-navigation/>
+<app-page-number-navigation [pageCount]="pageCount"/>

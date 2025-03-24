@@ -13,7 +13,7 @@ import {RoutingConstants} from 'src/app/core/util/routing-constants';
     FormsModule
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   title = 'MyGallery™';
@@ -26,6 +26,4 @@ export class HeaderComponent {
   changeLanguage() {
     this.translateService.use(this.language);
   }
-
-  //TODO: MR3: make page number not start from 0
 }

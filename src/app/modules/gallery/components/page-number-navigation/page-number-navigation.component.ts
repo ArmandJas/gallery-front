@@ -1,34 +1,43 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PhotoService} from 'src/app/modules/gallery/components/services/photo.service';
-import {ImagePlaceholderDirective} from 'src/app/shared/directives/image-placeholder.directive';
+import {RouteUrlExtractor} from 'src/app/shared/util/route-url-extractor';
 
 @Component({
   selector: 'app-page-number-navigation',
-  imports: [
-    ImagePlaceholderDirective
-  ],
+  imports: [],
   templateUrl: './page-number-navigation.component.html',
-  styleUrl: './page-number-navigation.component.css'
+  styleUrl: './page-number-navigation.component.scss'
 })
 export class PageNumberNavigationComponent {
-  pageNumber !: number;
-//TODO: links not working, positioning of component
+  @Input({required: true}) pageCount: number | undefined;
+  currentPageNumber: number = -1;
+  currentRouteUrlWithoutId: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
   ) {
+    this.route.params.subscribe(() => this.refreshCurrentPageNumber());
+    this.currentRouteUrlWithoutId = RouteUrlExtractor.getCurrentRouteUrlWithoutId(route);
   }
 
-  ngOnInit(){
-    this.pageNumber = Number(this.route.snapshot.paramMap.get('id'));
+  private refreshCurrentPageNumber() {
+    this.currentPageNumber = Number(this.route.snapshot.paramMap.get('pageNumber'));
   }
 
-
-  navigateBack(){
-    this.router.navigate([this.route.snapshot.url[1]]);
+  protected navigateStart() {
+    this.router.navigate([this.currentRouteUrlWithoutId, 1]).then();
   }
-  navigateForward() {
 
+  protected navigateBack() {
+    this.router.navigate([this.currentRouteUrlWithoutId, this.currentPageNumber - 1]).then();
+  }
+
+  protected navigateForward() {
+    this.router.navigate([this.currentRouteUrlWithoutId, this.currentPageNumber + 1]).then();
+  }
+
+  protected navigateEnd() {
+    this.router.navigate([this.currentRouteUrlWithoutId, this.pageCount]).then();
   }
 }

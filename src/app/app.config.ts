@@ -12,7 +12,9 @@ const httpLoaderFactory: (http: HttpClient) =>
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true}),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(routes,
+      withComponentInputBinding(),
+    ),
     provideHttpClient(),
     provideTranslateService({
       loader: {

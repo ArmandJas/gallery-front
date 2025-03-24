@@ -1,0 +1,20 @@
+@use 'colors';
+
+input {
+  height: 2rem;
+}
+
+.row {
+  margin: auto;
+  width: 50%;
+}
+
+.clickable {
+  cursor: pointer;
+  background-color: colors.$gray;
+}
+
+.expanded-search {
+  margin: auto;
+  background-color: colors.$light-gray;
+}

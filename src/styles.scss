@@ -1,10 +1,9 @@
 /* Application-wide Styles */
 
+@use 'image-base';
+
 img {
-  object-fit: contain;
-  border: 4px black solid;
-  border-radius: 10px;
-  padding: 5px;
+  @extend %image-shared;
 }
 
 button:hover {

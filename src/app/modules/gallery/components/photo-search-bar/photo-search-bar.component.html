@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col">
+    <label>{{ 'photo.search.name.label' | translate }}</label>
+
+    <input type="text"
+           [(ngModel)]="model.name"
+           (keydown.enter)="executeSearch()">
+
+    <input type="image"
+           alt="search button"
+           src="search.png"
+           (click)="executeSearch()">
+  </div>
+</div>
+
+<div class="row clickable"
+     (click)="toggleExpand();">
+  <div class="col">
+    <label class="clickable">
+      {{ 'photo.search.expand.label' | translate }}
+    </label>
+  </div>
+</div>
+
+@if (isExpanded) {
+  <div class="expanded-search">
+    <div class="row">
+      <div class="col">
+        <label>{{ 'photo.search.id.label' | translate }}</label>
+        <input type="text"
+               [(ngModel)]="model.id">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label>{{ 'photo.search.description.label' | translate }}</label>
+        <input type="text"
+               [(ngModel)]="model.description">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label>{{ 'photo.search.date.start.label' | translate }}</label>
+        <input type="date"
+               [(ngModel)]="model.uploadDateTimeStart">
+      </div>
+      
+      <div class="col">
+        <label>{{ 'photo.search.date.end.label' | translate }}</label>
+        <input type="date"
+               [(ngModel)]="model.uploadDateTimeEnd">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <app-tag-input (tagsChange)="updateTags($event)"/>
+      </div>
+    </div>
+  </div>
+}

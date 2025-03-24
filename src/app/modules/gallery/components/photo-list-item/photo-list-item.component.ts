@@ -1,10 +1,8 @@
-import {Attribute, Component, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
-import {PHOTO_VIEW_PATH} from 'src/app/core/util/routing-constants';
-import {PhotoService} from 'src/app/modules/gallery/components/services/photo.service';
-import {PhotoListComponent} from 'src/app/modules/gallery/pages/photo-list/photo-list.component';
+import {RoutingConstants} from 'src/app/core/util/routing-constants';
 import {ImagePlaceholderDirective} from 'src/app/shared/directives/image-placeholder.directive';
-import {PhotoDtoModel} from 'src/app/shared/models/photo-dto.model';
+import {PhotoDto} from '../../models/photo.dto';
 
 @Component({
   selector: 'app-photo-list-item',
@@ -12,15 +10,17 @@ import {PhotoDtoModel} from 'src/app/shared/models/photo-dto.model';
     ImagePlaceholderDirective
   ],
   templateUrl: './photo-list-item.component.html',
-  styleUrl: './photo-list-item.component.css'
+  styleUrl: './photo-list-item.component.scss'
 })
 export class PhotoListItemComponent {
-  @Input({required: true}) photo !: PhotoDtoModel;
+  @Input({required: true}) photo: PhotoDto = new PhotoDto();
 
   constructor(private router: Router) {
   }
 
-  navigate(){
-    this.router.navigate([PHOTO_VIEW_PATH + '/' + this.photo.id]);
+  navigate() {
+    if (this.photo) {
+      this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + this.photo.id]).then();
+    }
   }
 }

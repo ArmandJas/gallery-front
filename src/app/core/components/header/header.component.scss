@@ -1,3 +1,5 @@
+@use 'colors';
+
 nav {
   float: left;
   position: sticky;
@@ -5,7 +7,7 @@ nav {
 }
 
 .nav-container {
-  background-color: #40E0D0;
+  background-color: colors.$turquoise;
   padding: 6px;
   margin-bottom: 6px;
 }

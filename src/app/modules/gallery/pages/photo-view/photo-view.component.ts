@@ -3,6 +3,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {ImagePlaceholderDirective} from 'src/app/shared/directives/image-placeholder.directive';
+import {ErrorNavigator} from 'src/app/shared/util/error-navigator';
+import {NumberValidator} from 'src/app/shared/util/number-validator';
 import {PhotoService} from '../../components/services/photo.service';
 import {PhotoDto} from '../../models/photo.dto';
 
@@ -10,23 +12,23 @@ import {PhotoDto} from '../../models/photo.dto';
   selector: 'app-photo-view',
   imports: [ReactiveFormsModule, ImagePlaceholderDirective, TranslatePipe],
   templateUrl: './photo-view.component.html',
-  styleUrl: './photo-view.component.css'
+  styleUrl: './photo-view.component.scss'
 })
 export class PhotoViewComponent {
   photoDto = new PhotoDto("Loading...");
 
   constructor(
     private route: ActivatedRoute,
-    private photoService: PhotoService,
     private router: Router,
+    private photoService: PhotoService,
   ) {
     this.loadPhoto();
   }
 
   private loadPhoto(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (!id || id < 0) {
-      this.navigateToNotFound();
+    if (!NumberValidator.isPositiveNumber(id)) {
+      ErrorNavigator.navigateToErrorPage(this.router);
       return;
     }
 
@@ -34,12 +36,7 @@ export class PhotoViewComponent {
       next: (photoDto) => {
         this.photoDto = photoDto;
       },
-      error: () => this.navigateToNotFound()
+      error: (err) => ErrorNavigator.navigateToErrorPage(this.router, err)
     });
-
-  }
-
-  private navigateToNotFound(): void {
-    this.router.navigate(['/404']);
   }
 }

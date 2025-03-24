@@ -1,0 +1,9 @@
+@if (errorNumber == 400) {
+  <h1 class="errorMessage">{{ 'shared.error.bad.request' | translate }}</h1>
+}
+@if (errorNumber == 404) {
+  <h1 class="errorMessage">{{ 'shared.error.not.found' | translate }}</h1>
+}
+@if (errorNumber == 500) {
+  <h1 class="errorMessage">{{ 'shared.error.internal.server' | translate }}</h1>
+}
