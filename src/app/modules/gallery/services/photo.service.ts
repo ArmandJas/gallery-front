@@ -27,10 +27,11 @@ export class PhotoService {
       .pipe(map(response => this.prependBase64ImageHeader(response)));
   }
 
-  public getPhotoPage(photoPageRequest: PhotoPageRequest) {
+  public findPhotoPage(photoPageRequest: PhotoPageRequest) {
     const backEndPageNumber = photoPageRequest.pageNumber - 1;
+    photoPageRequest.pageNumber = backEndPageNumber;
 
-    return this.http.post<PhotoPageResponse>(this.url + "page/" + backEndPageNumber, photoPageRequest)
+    return this.http.post<PhotoPageResponse>(this.url + "search", photoPageRequest)
       .pipe(map(response => {
         response.photoPreviews = this.mapPrependBase64Array(response.photoPreviews);
         return response;

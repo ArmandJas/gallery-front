@@ -53,7 +53,7 @@ export class PhotoListComponent {
     }
 
     this.currentPhotoPageRequest.pageNumber = photoPageRequest.pageNumber;
-    this.photoService.getPhotoPage(photoPageRequest).subscribe({
+    this.photoService.findPhotoPage(photoPageRequest).subscribe({
       next: (photoPage: PhotoPageResponse) => {
         this.photoList = photoPage.photoPreviews;
         this.pageCount = this.calculatePageCount(photoPage.photoCount, photoPageRequest.pageSize);
