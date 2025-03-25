@@ -37,12 +37,12 @@ export class PhotoSearchBarComponent {
       this.model.description = undefined;
     }
 
-    if (this.model.uploadDateTimeStart == "") {
-      this.model.uploadDateTimeStart = undefined;
+    if (this.model.uploadDateStart == "") {
+      this.model.uploadDateStart = undefined;
     }
 
-    if (this.model.uploadDateTimeEnd == "") {
-      this.model.uploadDateTimeEnd = undefined;
+    if (this.model.uploadDateEnd == "") {
+      this.model.uploadDateEnd = undefined;
     }
 
     if (this.model.tags?.length == 0) {
