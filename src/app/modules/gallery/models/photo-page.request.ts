@@ -5,9 +5,9 @@ export class PhotoPageRequest {
     public id?: number,
     public name?: string,
     public description?: string,
-    public tags: string[] = [],
-    public uploadDateTimeStart?: string,
-    public uploadDateTimeEnd?: string,
+    public uploadDateStart?: string,
+    public uploadDateEnd?: string,
+    public tags?: string[],
   ) {
   }
 

@@ -7,7 +7,7 @@ import {NumberValidator} from 'src/app/shared/util/number-validator';
 import {PageNumberNavigationComponent} from '../../components/page-number-navigation/page-number-navigation.component';
 import {PhotoListItemComponent} from '../../components/photo-list-item/photo-list-item.component';
 import {PhotoSearchBarComponent} from '../../components/photo-search-bar/photo-search-bar.component';
-import {PhotoService} from '../../components/services/photo.service';
+import {PhotoService} from '../../services/photo.service';
 import {PhotoPageRequest} from '../../models/photo-page.request';
 import {PhotoPageResponse} from '../../models/photo-page.response';
 import {PhotoDto} from '../../models/photo.dto';
@@ -53,7 +53,7 @@ export class PhotoListComponent {
     }
 
     this.currentPhotoPageRequest.pageNumber = photoPageRequest.pageNumber;
-    this.photoService.getPhotoPage(photoPageRequest).subscribe({
+    this.photoService.findPhotoPage(photoPageRequest).subscribe({
       next: (photoPage: PhotoPageResponse) => {
         this.photoList = photoPage.photoPreviews;
         this.pageCount = this.calculatePageCount(photoPage.photoCount, photoPageRequest.pageSize);

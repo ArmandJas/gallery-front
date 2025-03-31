@@ -16,33 +16,18 @@ import {TagInputComponent} from '../tag-input/tag-input/tag-input.component';
 })
 export class PhotoSearchBarComponent {
   @Output() executeSearchEvent = new EventEmitter<PhotoPageRequest>();
-  isExpanded: boolean = false;
+  expanded: boolean = false;
   model = new PhotoPageRequest();
 
   protected executeSearch() {
-    this.removeEmptyModelFields();
     this.executeSearchEvent.emit(this.model);
   }
 
   protected toggleExpand() {
-    this.isExpanded = !this.isExpanded;
+    this.expanded = !this.expanded;
   }
 
   protected updateTags(tags: string[]) {
     this.model.tags = tags;
-  }
-
-  private removeEmptyModelFields() {
-    if (this.model.description == "") {
-      this.model.description = undefined;
-    }
-
-    if (this.model.uploadDateTimeStart == "") {
-      this.model.uploadDateTimeStart = undefined;
-    }
-
-    if (this.model.uploadDateTimeEnd == "") {
-      this.model.uploadDateTimeEnd = undefined;
-    }
   }
 }
