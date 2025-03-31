@@ -1,6 +1,7 @@
 /* Application-wide Styles */
 
 @use 'image-base';
+@use 'colors';
 
 img {
   @extend %image-shared;
@@ -12,21 +13,25 @@ button:hover {
 }
 
 button:disabled {
-  background-color: #eeeeee;
-  color: #aaa;
+  background-color: colors.$light-gray;
+  color: colors.$gray;
   cursor: auto;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .errorMessage {
-  color: red;
+  color: colors.$red;
 }
 
 .ng-valid[required], .ng-valid.required {
-  border-left: 10px solid #42A948; /* green */
+  border-left: 10px solid colors.$green;
 }
 
 .ng-invalid:not(form) {
-  border-left: 10px solid #a94442; /* red */
+  border-left: 10px solid colors.$red;
 }
 
 .imgPlaceholder {

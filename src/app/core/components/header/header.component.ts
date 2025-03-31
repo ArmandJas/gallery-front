@@ -16,9 +16,9 @@ import {RoutingConstants} from 'src/app/core/util/routing-constants';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  readonly RoutingConstants = RoutingConstants;
   title = 'MyGallery™';
   language = '_en';
-  RoutingConstants = RoutingConstants;
 
   constructor(private translateService: TranslateService) {
   }

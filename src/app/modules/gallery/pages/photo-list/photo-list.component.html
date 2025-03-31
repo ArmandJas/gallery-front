@@ -3,7 +3,7 @@
 <div class="container text-start">
   <div class="row">
     @if (isEmpty) {
-      <h1 class="errorMessage">{{ 'shared.error.not.found' | translate }}</h1>
+      <h1 class="errorMessage">{{ 'photo.search.not.found' | translate }}</h1>
     }
     @for (photo of photoList; track photo.id) {
       <div class="col-6 col-md-4">

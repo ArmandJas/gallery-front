@@ -11,37 +11,63 @@
     <div class="col">
       @if (currentPageNumber > 2) {
         <button (click)="navigateStart()">
-          1
+          <label class="clickable">
+            1
+          </label>
         </button>
+      }
+    </div>
+
+    <div class="col">
+      @if (currentPageNumber > 2) {
+        <label>
+          ...
+        </label>
       }
     </div>
 
     <div class="col">
       @if (currentPageNumber != 1) {
         <button (click)="navigateBack()">
-          {{ currentPageNumber - 1 }}
+          <label class="clickable">
+            {{ currentPageNumber - 1 }}
+          </label>
         </button>
       }
     </div>
 
     <div class="col">
       <button [disabled]="true">
-        {{ currentPageNumber }}
+        <label class="clickable">
+          {{ currentPageNumber }}
+        </label>
       </button>
     </div>
 
     <div class="col">
       @if (pageCount && currentPageNumber < pageCount) {
         <button (click)="navigateForward()">
-          {{ currentPageNumber + 1 }}
+          <label class="clickable">
+            {{ currentPageNumber + 1 }}
+          </label>
         </button>
       }
     </div>
 
     <div class="col">
       @if (pageCount && currentPageNumber < pageCount - 1) {
+        <label>
+          ...
+        </label>
+      }
+    </div>
+
+    <div class="col">
+      @if (pageCount && currentPageNumber < pageCount - 1) {
         <button (click)="navigateEnd()">
-          {{ pageCount }}
+          <label class="clickable">
+            {{ pageCount }}
+          </label>
         </button>
       }
     </div>

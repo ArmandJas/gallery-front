@@ -1,15 +1,16 @@
 import {Directive, ElementRef, Input, OnChanges, Renderer2} from '@angular/core';
 
 type ImageSrc = string | null | undefined;
-const placeholderClass = "imgPlaceholder"
 
 @Directive({
   selector: '[appImagePlaceholder]'
 })
 export class ImagePlaceholderDirective implements OnChanges {
-  @Input({required: true}) src: ImageSrc = null;
+  private readonly PLACEHOLDER_CLASS_NAME = "imgPlaceholder";
+  private readonly PLACEHOLDER_IMAGE = "placeholder.png";
 
-  private placeholderLocalImage = "placeholder.png";
+  @Input({required: true})
+  src: ImageSrc = null;
 
   constructor(
     private imageRef: ElementRef,
@@ -37,7 +38,7 @@ export class ImagePlaceholderDirective implements OnChanges {
       this.removePlaceholderClass();
     };
     img.onerror = () => {
-      this.setImage(this.placeholderLocalImage);
+      this.setImage(this.PLACEHOLDER_IMAGE);
       this.removePlaceholderClass();
     };
   }
@@ -48,17 +49,17 @@ export class ImagePlaceholderDirective implements OnChanges {
 
   private resolveImage(src: ImageSrc): string {
     if (!src) {
-      return this.placeholderLocalImage;
+      return this.PLACEHOLDER_IMAGE;
     }
 
     return src;
   }
 
   private applyPlaceholderClass() {
-    this.renderer.addClass(this.imageRef.nativeElement, placeholderClass);
+    this.renderer.addClass(this.imageRef.nativeElement, this.PLACEHOLDER_CLASS_NAME);
   }
 
   private removePlaceholderClass() {
-    this.renderer.removeClass(this.imageRef.nativeElement, placeholderClass);
+    this.renderer.removeClass(this.imageRef.nativeElement, this.PLACEHOLDER_CLASS_NAME);
   }
 }
