@@ -1,10 +1,10 @@
 export class PhotoDto {
   constructor(
     public name: string = "",
-    public imageBase64: string = "",
     public tags: string[] = [],
     public id: number = -1,
-    public uploadDateTime: string = "",
+    public imageBase64?: string,
+    public uploadDateTime?: string,
     public description?: string,
   ) {
   }

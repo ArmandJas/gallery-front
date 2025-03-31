@@ -44,9 +44,5 @@ export class PhotoSearchBarComponent {
     if (this.model.uploadDateTimeEnd == "") {
       this.model.uploadDateTimeEnd = undefined;
     }
-
-    if (this.model.tags?.length == 0) {
-      this.model.tags = undefined;
-    }
   }
 }

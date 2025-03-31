@@ -21,6 +21,9 @@ export class PhotoService {
     return this.http.post<PhotoDto>(this.url + "post", photo)
       .pipe(map(response => this.prependBase64ImageHeader(response)));
   }
+  public deletePhotoById(id: Number){
+    this.http.delete(this.url + id).subscribe();
+  }
 
   public getPhotoById(id: Number) {
     return this.http.get<PhotoDto>(this.url + id)

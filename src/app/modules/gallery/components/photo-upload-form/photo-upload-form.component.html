@@ -19,33 +19,11 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="files"> {{ 'photo.form.image.label' | translate }} </label>
-      <input type="file"
-             id="files"
-             name="image"
-             class="form-control"
-             required
-             appImageValidator
-             #image="ngModel"
-             (change)="uploadImage($event)"
-             [(ngModel)]="inputFilePathName"
-      >
-
-      <div [hidden]="image.valid || image.pristine" class="errorMessage">
-        {{ 'photo.form.image.error' | translate }}
-      </div>
-      @if (model.image && image.valid) {
-        <div class="imageContainer">
-          <h1> {{ 'photo.form.preview' | translate }} </h1>
-          <img [src]="previewImageBase64" alt="input image" class="preview-image">
-        </div>
-      }
-
-    </div>
+    <app-image-input-preview (imageUpload)="updateImageFile($event)"/>
 
     <div class="form-group">
-      <app-tag-input (tagsChange)="updateTags($event)"/>
+<!--      <app-tag-input (tagsChange)="updateTags($event)"/>-->
+      <app-tag-input [tagList]="model.tags"></app-tag-input>
     </div>
 
     <div class="form-group">
