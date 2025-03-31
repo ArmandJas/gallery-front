@@ -1,7 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {map} from 'rxjs';
-import {PhotoDto} from '../../models/photo.dto';
+import {map, tap} from 'rxjs';
+import {PhotoPageRequest} from '../models/photo-page.request';
+import {PhotoPageResponse} from '../models/photo-page.response';
+import {PhotoDto} from '../models/photo.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,17 @@ export class PhotoService {
   public getPhotoById(id: Number) {
     return this.http.get<PhotoDto>(this.url + id)
       .pipe(map(response => this.prependBase64ImageHeader(response)));
+  }
+
+  public findPhotoPage(photoPageRequest: PhotoPageRequest) {
+    const backEndPageNumber = photoPageRequest.pageNumber - 1;
+    photoPageRequest.pageNumber = backEndPageNumber;
+
+    return this.http.post<PhotoPageResponse>(this.url + "search", photoPageRequest)
+      .pipe(tap(response => {
+        response.photoPreviews.map(preview => this.prependBase64ImageHeader(preview));
+        return response;
+      }));
   }
 
   private prependBase64ImageHeader(photoDto: PhotoDto) {

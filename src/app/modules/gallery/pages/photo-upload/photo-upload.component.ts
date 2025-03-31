@@ -11,7 +11,7 @@ import {PhotoUploadFormComponent} from '../../components/photo-upload-form/photo
     TranslatePipe,
   ],
   templateUrl: './photo-upload.component.html',
-  styleUrl: './photo-upload.component.css'
+  styleUrl: './photo-upload.component.scss'
 })
 export class PhotoUploadComponent {
 

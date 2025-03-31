@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col">
+      <input type="image"
+             alt="back button"
+             src="chevron_left.png"
+             [disabled]="currentPageNumber == 1"
+             (click)="navigateBack()">
+    </div>
+
+    <div class="col">
+      @if (currentPageNumber > 2) {
+        <button (click)="navigateStart()">
+          <label class="clickable">
+            1
+          </label>
+        </button>
+      }
+    </div>
+
+    <div class="col">
+      @if (currentPageNumber > 2) {
+        <label>
+          ...
+        </label>
+      }
+    </div>
+
+    <div class="col">
+      @if (currentPageNumber != 1) {
+        <button (click)="navigateBack()">
+          <label class="clickable">
+            {{ currentPageNumber - 1 }}
+          </label>
+        </button>
+      }
+    </div>
+
+    <div class="col">
+      <button [disabled]="true">
+        <label class="clickable">
+          {{ currentPageNumber }}
+        </label>
+      </button>
+    </div>
+
+    <div class="col">
+      @if (pageCount && currentPageNumber < pageCount) {
+        <button (click)="navigateForward()">
+          <label class="clickable">
+            {{ currentPageNumber + 1 }}
+          </label>
+        </button>
+      }
+    </div>
+
+    <div class="col">
+      @if (pageCount && currentPageNumber < pageCount - 1) {
+        <label>
+          ...
+        </label>
+      }
+    </div>
+
+    <div class="col">
+      @if (pageCount && currentPageNumber < pageCount - 1) {
+        <button (click)="navigateEnd()">
+          <label class="clickable">
+            {{ pageCount }}
+          </label>
+        </button>
+      }
+    </div>
+
+    <div class="col">
+      <input type="image"
+             alt="forward button"
+             src="chevron_right.png"
+             [disabled]="pageCount && currentPageNumber >= pageCount"
+             (click)="navigateForward()">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+@use 'colors';
+
+input {
+  height: 2rem;
+}
+
+.row {
+  margin: auto;
+  width: 50%;
+}
+
+.search {
+  background-color: colors.$light-gray;
+}

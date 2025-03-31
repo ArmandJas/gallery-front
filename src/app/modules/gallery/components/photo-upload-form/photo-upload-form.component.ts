@@ -1,28 +1,29 @@
 import {Component} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {RegexConstants} from 'src/app/core/util/regex-constants';
 import {RoutingConstants} from 'src/app/core/util/routing-constants';
+import {ErrorNavigator} from 'src/app/shared/util/error-navigator';
 import {FormDataCreator} from 'src/app/shared/util/form-data-creator';
 import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
 import {PhotoUploadRequest} from '../../models/photo-upload.request';
-import {PhotoService} from '../services/photo.service';
+import {PhotoService} from '../../services/photo.service';
+import {TagInputComponent} from '../tag-input/tag-input/tag-input.component';
 
 @Component({
   selector: 'app-photo-upload-form',
   imports: [
-    ReactiveFormsModule,
     FormsModule,
     ImageValidatorDirective,
     TranslatePipe,
+    TagInputComponent,
   ],
   templateUrl: './photo-upload-form.component.html',
-  styleUrl: './photo-upload-form.component.css'
+  styleUrl: './photo-upload-form.component.scss'
 })
 export class PhotoUploadFormComponent {
   model = new PhotoUploadRequest();
-  tagInput = "";
   inputFilePathName: string | undefined;
   previewImageBase64: string | undefined;
   RegexConstants = RegexConstants;
@@ -46,28 +47,18 @@ export class PhotoUploadFormComponent {
     };
   }
 
-  addTag() {
-    this.tagInput = this.tagInput.trim();
-    const index = this.model.tags.indexOf(this.tagInput);
-    if (index == -1) {
-      this.model.tags.push(this.tagInput);
-      this.tagInput = "";
-    }
-  }
-
-  removeTag(tag: string) {
-    tag = tag.trim();
-    const index = this.model.tags.indexOf(tag);
-    if (index > -1) {
-      this.model.tags.splice(index, 1);
-    }
+  protected updateTags(tags: string[]) {
+    this.model.tags = tags;
   }
 
   submitForm(): void {
     const formData = FormDataCreator.createFormData(this.model);
 
-    this.photoService.savePhoto(formData).subscribe(model =>
-      this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id])
-    );
+    this.photoService.savePhoto(formData).subscribe({
+      next: (model) => {
+        this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id]).then();
+      },
+      error: (err) => ErrorNavigator.navigateToErrorPage(this.router, err)
+    });
   }
 }

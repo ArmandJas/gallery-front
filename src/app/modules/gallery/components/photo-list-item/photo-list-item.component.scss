@@ -1,0 +1,8 @@
+@use 'image-base';
+
+input {
+  @extend %image-shared;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 25px;
+}

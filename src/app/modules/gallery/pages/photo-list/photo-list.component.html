@@ -1,1 +1,15 @@
-<p>Work in progress...</p>
+<app-photo-search (executeSearchEvent)="executeSearch($event)"/>
+<app-page-number-navigation [pageCount]="pageCount"/>
+<div class="container text-start">
+  <div class="row">
+    @if (isEmpty) {
+      <h1 class="errorMessage">{{ 'photo.search.not.found' | translate }}</h1>
+    }
+    @for (photo of photoList; track photo.id) {
+      <div class="col-6 col-md-4">
+        <app-photo-list-item [photo]=photo></app-photo-list-item>
+      </div>
+    }
+  </div>
+</div>
+<app-page-number-navigation [pageCount]="pageCount"/>
