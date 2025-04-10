@@ -1,15 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {RegexConstants} from 'src/app/core/util/regex-constants';
-import {RoutingConstants} from 'src/app/core/util/routing-constants';
-import {ImageInputPreviewComponent} from 'src/app/modules/gallery/components/image-upload-preview/image-input-preview.component';
-import {PhotoDto} from 'src/app/modules/gallery/models/photo.dto';
-import {ErrorNavigator} from 'src/app/shared/util/error-navigator';
 import {FormDataCreator} from 'src/app/shared/util/form-data-creator';
-import {PhotoUploadRequest} from '../../models/photo-upload.request';
-import {PhotoService} from '../../services/photo.service';
+import {ImageValidatorDirective} from 'src/app/shared/validators/image-validator.directive';
+import {PhotoSaveRequest} from '../../models/photo-save-request';
 import {TagInputComponent} from '../tag-input/tag-input/tag-input.component';
 
 @Component({
@@ -18,41 +13,42 @@ import {TagInputComponent} from '../tag-input/tag-input/tag-input.component';
     FormsModule,
     TranslatePipe,
     TagInputComponent,
-    ImageInputPreviewComponent,
+    ImageValidatorDirective,
   ],
   templateUrl: './photo-upload-form.component.html',
   styleUrl: './photo-upload-form.component.scss'
 })
 export class PhotoUploadFormComponent {
   @Input({required: true})
-  model: any;
-//  model = new PhotoUploadRequest();
+  model!: PhotoSaveRequest;
+
+  @Input()
+  withImageUpload: boolean = false;
+
+  @Output()
+  formSubmitted = new EventEmitter<FormData>();
+
   RegexConstants = RegexConstants;
-
-  constructor(private photoService: PhotoService,
-              private router: Router) {
-    if(this.model){
-      this.updateTags(this.model.tags);
-    }
-  }
-  //TODO: decouple/make extra version of form for edit photo.
-  protected updateImageFile(file: File) {
-    this.model.image = file;
-  }
-
-  protected updateTags(tags: string[]) {
-    console.log(this.model.tags);
-    this.model.tags = tags;
-  }
+  previewImageBase64: string | undefined;
+  inputFilePathName: string | undefined;
 
   submitForm(): void {
     const formData = FormDataCreator.createFormData(this.model);
+    this.formSubmitted.emit(formData);
+  }
 
-    this.photoService.savePhoto(formData).subscribe({
-      next: (model) => {
-        this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id]).then();
-      },
-      error: (err) => ErrorNavigator.navigateToErrorPage(this.router, err)
-    });
+  uploadImage(event: any) {
+    const reader = new FileReader();
+    this.model.image = event.target.files[0];
+
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      if (reader.result != null) {
+        this.previewImageBase64 = reader.result.toString();
+      }
+    };
+    reader.onerror = function (error) {
+      console.error('File reader error: ', error);
+    };
   }
 }

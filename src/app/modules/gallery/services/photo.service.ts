@@ -1,9 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {map, tap} from 'rxjs';
+import {PhotoResponse} from 'src/app/modules/gallery/models/photo.response';
 import {PhotoPageRequest} from '../models/photo-page.request';
 import {PhotoPageResponse} from '../models/photo-page.response';
-import {PhotoDto} from '../models/photo.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -17,32 +16,34 @@ export class PhotoService {
   ) {
   }
 
-  public savePhoto(photo: FormData) {
-    return this.http.post<PhotoDto>(this.url + "post", photo)
-      .pipe(map(response => this.prependBase64ImageHeader(response)));
+  public save(photo: FormData) {
+    return this.http.post<PhotoResponse>(this.url + "post", photo);
   }
-  public deletePhotoById(id: Number){
+
+  public edit(photo: FormData) {
+    return this.http.put<PhotoResponse>(this.url + "edit", photo);
+  }
+
+  public delete(id: Number) {
     this.http.delete(this.url + id).subscribe();
   }
 
-  public getPhotoById(id: Number) {
-    return this.http.get<PhotoDto>(this.url + id)
-      .pipe(map(response => this.prependBase64ImageHeader(response)));
+  public get(id: Number) {
+    return this.http.get<PhotoResponse>(this.url + id);
+  }
+
+  public getImage(id: Number) {
+    return this.http.get(this.url + id + "/image", {responseType: 'blob'});
+  }
+
+  public getThumbnail(id: Number) {
+    return this.http.get(this.url + id + "/thumbnail", {responseType: 'blob'});
   }
 
   public findPhotoPage(photoPageRequest: PhotoPageRequest) {
     const backEndPageNumber = photoPageRequest.pageNumber - 1;
     photoPageRequest.pageNumber = backEndPageNumber;
 
-    return this.http.post<PhotoPageResponse>(this.url + "search", photoPageRequest)
-      .pipe(tap(response => {
-        response.photoPreviews.map(preview => this.prependBase64ImageHeader(preview));
-        return response;
-      }));
-  }
-
-  private prependBase64ImageHeader(photoDto: PhotoDto) {
-    photoDto.imageBase64 = this.BASE64_HEADER + photoDto.imageBase64;
-    return photoDto;
+    return this.http.post<PhotoPageResponse>(this.url + "search", photoPageRequest);
   }
 }

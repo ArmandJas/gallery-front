@@ -9,7 +9,9 @@ import {RouteUrlExtractor} from 'src/app/shared/util/route-url-extractor';
   styleUrl: './page-number-navigation.component.scss'
 })
 export class PageNumberNavigationComponent {
-  @Input({required: true}) pageCount: number | undefined;
+  @Input({required: true})
+  pageCount: number | undefined;
+
   currentPageNumber: number = -1;
   currentRouteUrlWithoutId: string;
 

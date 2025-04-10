@@ -1,9 +1,9 @@
-import {PhotoDto} from 'src/app/modules/gallery/models/photo.dto';
+import {PhotoResponse} from 'src/app/modules/gallery/models/photo.response';
 
 export class PhotoPageResponse {
   constructor(
-    public photoPreviews: PhotoDto[] = [],
-    public photoCount: number = 0
+    public photoPreviews: PhotoResponse[] = [],
+    public photoTotalCount: number = 0
   ) {
   }
 }

@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {RoutingConstants} from 'src/app/core/util/routing-constants';
+import {PhotoResponse} from 'src/app/modules/gallery/models/photo.response';
+import {PhotoService} from 'src/app/modules/gallery/services/photo.service';
 import {ImagePlaceholderDirective} from 'src/app/shared/directives/image-placeholder.directive';
-import {PhotoDto} from '../../models/photo.dto';
 
 @Component({
   selector: 'app-photo-list-item',
@@ -12,10 +13,20 @@ import {PhotoDto} from '../../models/photo.dto';
   templateUrl: './photo-list-item.component.html',
   styleUrl: './photo-list-item.component.scss'
 })
-export class PhotoListItemComponent {
-  @Input({required: true}) photo: PhotoDto = new PhotoDto();
+export class PhotoListItemComponent implements OnInit {
+  @Input({required: true})
+  photo = new PhotoResponse();
 
-  constructor(private router: Router) {
+  protected imageSrc: string = "";
+
+  constructor(private router: Router,
+              private photoService: PhotoService) {
+  }
+
+  ngOnInit() {
+    this.photoService.getThumbnail(this.photo.id).subscribe(blob => {
+      this.imageSrc = URL.createObjectURL(blob);
+    });
   }
 
   navigate() {

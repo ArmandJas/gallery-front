@@ -15,19 +15,17 @@ import {TagInputComponent} from '../tag-input/tag-input/tag-input.component';
   styleUrl: './photo-search-bar.component.scss'
 })
 export class PhotoSearchBarComponent {
-  @Output() executeSearchEvent = new EventEmitter<PhotoPageRequest>();
+  @Output()
+  searchExecuted = new EventEmitter<PhotoPageRequest>();
+
   expanded: boolean = false;
   model = new PhotoPageRequest();
 
   protected executeSearch() {
-    this.executeSearchEvent.emit(this.model);
+    this.searchExecuted.emit(this.model);
   }
 
   protected toggleExpand() {
     this.expanded = !this.expanded;
-  }
-
-  protected updateTags(tags: string[]) {
-    this.model.tags = tags;
   }
 }

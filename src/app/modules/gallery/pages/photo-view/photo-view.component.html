@@ -1,10 +1,10 @@
 <div class="container text-start">
   <div class="row">
     <div class="col">
-      <h1>{{ 'photo.name' | translate }} {{ photoDto.name }}</h1>
+      <h1>{{ 'photo.name' | translate }} {{ photoResponse.name }}</h1>
     </div>
     <div class="col">
-      <h2>{{ 'photo.upload.date' | translate }} {{ photoDto.uploadDateTime }}</h2>
+      <h2>{{ 'photo.upload.date' | translate }} {{ photoResponse.uploadDateTime }}</h2>
     </div>
   </div>
 
@@ -26,7 +26,7 @@
 
   <div class="row">
     <div class="col">
-      <img appImagePlaceholder [src]="photoDto.imageBase64">
+      <img appImagePlaceholder [src]="imageSrc">
     </div>
   </div>
 
@@ -37,7 +37,7 @@
     </div>
 
     <div class="row">
-      @for (tag of photoDto.tags; track tag) {
+      @for (tag of photoResponse.tags; track tag) {
         <div class="col">
           <button type="button">
             {{ tag }}
@@ -50,7 +50,7 @@
   <div class="row">
     <div class="photoDescription col">
       <h2>{{ 'photo.description' | translate }}</h2>
-      {{ photoDto.description }}
+      {{ photoResponse.description }}
     </div>
   </div>
 </div>

@@ -1,11 +1,13 @@
-import {Component, model} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
+import {RoutingConstants} from 'src/app/core/util/routing-constants';
 import {PhotoUploadFormComponent} from 'src/app/modules/gallery/components/photo-upload-form/photo-upload-form.component';
-import {PhotoService} from 'src/app/modules/gallery/components/services/photo.service';
-import {PhotoDto} from 'src/app/modules/gallery/models/photo.dto';
+import {PhotoResponse} from 'src/app/modules/gallery/models/photo.response';
+import {PhotoService} from 'src/app/modules/gallery/services/photo.service';
 import {ErrorNavigator} from 'src/app/shared/util/error-navigator';
 import {NumberValidator} from 'src/app/shared/util/number-validator';
+import {PhotoSaveRequest} from '../../models/photo-save-request';
 
 @Component({
   selector: 'app-photo-edit',
@@ -17,7 +19,8 @@ import {NumberValidator} from 'src/app/shared/util/number-validator';
   styleUrl: './photo-edit.component.scss'
 })
 export class PhotoEditComponent {
-  protected model = new PhotoDto();
+  protected model = new PhotoSaveRequest();
+  protected modelLoaded: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,9 +37,19 @@ export class PhotoEditComponent {
       return;
     }
 
-    this.photoService.getPhotoById(id).subscribe({
-      next: (photoDto) => {
-        this.model = photoDto;
+    this.photoService.get(id).subscribe({
+      next: (photoDto: PhotoResponse) => {
+        this.model = this.model.to(photoDto);
+        this.modelLoaded = true;
+      },
+      error: (err: any) => ErrorNavigator.navigateToErrorPage(this.router, err)
+    });
+  }
+
+  protected onFormSubmitted(formData: FormData) {
+    this.photoService.edit(formData).subscribe({
+      next: (model) => {
+        this.router.navigate([RoutingConstants.PHOTO_VIEW_PATH + '/' + model.id]).then();
       },
       error: (err) => ErrorNavigator.navigateToErrorPage(this.router, err)
     });

@@ -1,2 +1,7 @@
 <h2>{{ 'photo.upload' | translate }}</h2>
-<app-photo-upload-form [model]=model></app-photo-upload-form>
+<app-photo-upload-form
+  [model]="model"
+  (formSubmitted)="onFormSubmitted($event)"
+  [withImageUpload]="true"
+>
+</app-photo-upload-form>

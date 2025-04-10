@@ -3,7 +3,7 @@
     <h2>{{ photo.name }}</h2>
     <div class="row">
       <input type="image" alt="photo"
-             appImagePlaceholder [src]=photo.imageBase64
+             appImagePlaceholder [src]="imageSrc"
              (click)="navigate()">
     </div>
   </div>
