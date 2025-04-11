@@ -1,4 +1,4 @@
-<app-photo-search (executeSearchEvent)="executeSearch($event)"/>
+<app-photo-search (searchExecuted)="onSearchExecuted($event)"/>
 <app-page-number-navigation [pageCount]="pageCount"/>
 <div class="container text-start">
   <div class="row">
@@ -6,7 +6,7 @@
       <h1 class="errorMessage">{{ 'photo.search.not.found' | translate }}</h1>
     }
     @for (photo of photoList; track photo.id) {
-      <div class="col-6 col-md-4">
+      <div class="list-item col-6 col-md-4">
         <app-photo-list-item [photo]=photo></app-photo-list-item>
       </div>
     }

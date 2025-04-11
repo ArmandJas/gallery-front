@@ -1,0 +1,9 @@
+<h2>{{ 'photo.edit.title' | translate }}</h2>
+@defer (when modelLoaded) {
+  <app-photo-upload-form
+    [model]="model"
+    (formSubmitted)="onFormSubmitted($event)"
+    [withImageUpload]="false"
+  >
+  </app-photo-upload-form>
+}
